@@ -1,15 +1,21 @@
 import 'dart:convert';
+import 'dart:io';
+import 'dart:developer';
 
 import 'package:flutter/services.dart';
 import 'package:geojson/geojson.dart';
 import 'package:geopoint/geopoint.dart';
+import 'package:latlong/latlong.dart';
+import 'package:wastetastic/entity/CarPark.dart';
 import 'package:wastetastic/entity/WasteCategory.dart';
 import 'package:html/parser.dart' as html;
 import 'package:wastetastic/entity/WastePOI.dart';
 import 'package:wastetastic/control/NetworkMgr.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:csv/csv.dart';
 
 const String carParkDataURL =
-    'https://data.gov.sg/api/action/datastore_search?resource_id=139a3035-e624-4f56-b63f-89ae28d4ae4c';
+    'https://data.gov.sg/api/action/datastore_search?resource_id=139a3035-e624-4f56-b63f-89ae28d4ae4c&limit=4094';
 
 class DatabaseCreator {
   static createDatabaseForEWaste() async {
@@ -57,7 +63,25 @@ class DatabaseCreator {
   }
 
   static createDatabaseForCarPark() async {
-    String data = await NetworkMgr.getDataFromURL(carParkDataURL);
-    print(data);
+    final data = await rootBundle
+        .loadString('assets/databases/hdb-carpark-information.csv');
+    List<List<dynamic>> csvData = const CsvToListConverter().convert(data);
+    print(csvData[0]);
+    String carParkNum, address, carParkType, parkingType, freeParking;
+    GeoPoint location;
+    for (var lst in csvData) {
+      carParkNum = lst[0];
+      address = lst[1];
+      carParkType = lst[4];
+      parkingType = lst[5];
+      location = GeoPoint.fromLatLng(point: LatLng(double.parse(lst[2]), double.parse(lst[3])));
+      freeParking =
+          lst[7] == 'NO' ? 'Paid Parking' : 'Sundays and Public Holidays';
+      CarPark({
+        carParkNum: carParkNum,
+        address: address,
+        location:
+      })
+    }
   }
 }
