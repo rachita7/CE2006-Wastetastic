@@ -28,4 +28,13 @@ class CarPark {
   String get carParkType => _carParkType;
   String get parkingType => _parkingType;
   String get freeParking => _freeParking;
+
+  void printDetails() {
+    print('Car Park Number: $_carParkNum');
+    print('Address: $_address');
+    print('Location: ${location.latitude}, ${location.longitude}');
+    print('Car Park Type: $_carParkType');
+    print('Parking Type: $_parkingType');
+    print('Free Parking: $_freeParking');
+  }
 }

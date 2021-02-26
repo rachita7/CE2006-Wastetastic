@@ -69,19 +69,29 @@ class DatabaseCreator {
     print(csvData[0]);
     String carParkNum, address, carParkType, parkingType, freeParking;
     GeoPoint location;
+    bool first = true;
     for (var lst in csvData) {
+      if (first) {
+        first = false;
+        continue;
+      }
       carParkNum = lst[0];
       address = lst[1];
       carParkType = lst[4];
       parkingType = lst[5];
-      location = GeoPoint.fromLatLng(point: LatLng(double.parse(lst[2]), double.parse(lst[3])));
-      freeParking =
-          lst[7] == 'NO' ? 'Paid Parking' : 'Sundays and Public Holidays';
-      CarPark({
+      location = GeoPoint.fromLatLng(point: LatLng(lst[12], lst[12]));
+      freeParking = lst[7] == 'NO'
+          ? 'Paid Parking'
+          : 'Free on Sundays and Public Holidays';
+      CarPark c = CarPark(
         carParkNum: carParkNum,
         address: address,
-        location:
-      })
+        location: location,
+        carParkType: carParkType,
+        parkingType: parkingType,
+        freeParking: freeParking,
+      );
+      c.printDetails();
     }
   }
 }

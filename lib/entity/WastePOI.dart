@@ -48,7 +48,7 @@ class WastePOI {
   void printDetails() {
     print("Name: $_POI_name");
     print("Address: $_address");
-    print("Location: ${location.latitude} , ${location.longitude}");
+    print("Location: ${location.latitude}, ${location.longitude}");
     print("Description: $_POI_description");
     print("Inc crc: $_POI_inc_crc");
     print("Feml Upd d: $_POI_feml_upd_d");
