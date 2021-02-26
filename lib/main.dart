@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wastetastic/screens/BasicTestingScreen.dart';
+import 'package:wastetastic/screens/MainScreen.dart';
 
 void main() {
   runApp(MyApp());
@@ -12,9 +13,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData.dark(),
-      initialRoute: BasicTestingScreen.id,
+      initialRoute: "HomeScreen",
       routes: {
         BasicTestingScreen.id: (context) => BasicTestingScreen(),
+        "HomeScreen": (context) => MainScreen()
       },
     );
   }

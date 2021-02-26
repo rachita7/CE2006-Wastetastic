@@ -74,14 +74,15 @@ class DatabaseCreator {
       address = lst[1];
       carParkType = lst[4];
       parkingType = lst[5];
-      location = GeoPoint.fromLatLng(point: LatLng(double.parse(lst[2]), double.parse(lst[3])));
+      location = GeoPoint.fromLatLng(
+          point: LatLng(double.parse(lst[2]), double.parse(lst[3])));
       freeParking =
           lst[7] == 'NO' ? 'Paid Parking' : 'Sundays and Public Holidays';
-      CarPark({
+      CarPark(
         carParkNum: carParkNum,
         address: address,
-        location:
-      })
+        location: location,
+      );
     }
   }
 }
