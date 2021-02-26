@@ -29,6 +29,7 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      //resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text('Wastetastic'),
       ),
@@ -40,7 +41,7 @@ class _MainScreenState extends State<MainScreen> {
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.contact_page),
+            icon: Icon(Icons.list),
             label: 'Catalog',
           ),
           BottomNavigationBarItem(
