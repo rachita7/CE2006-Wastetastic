@@ -5,24 +5,24 @@ import 'AddWasteScreen.dart';
 import 'BasicTestingScreen.dart';
 import 'CatalogScreen.dart';
 
-int _selectedIndex = 0;
-List<Widget> _widgetOptions = <Widget>[
-  HomeScreen(),
-  CatalogScreen(),
-  AddWasteScreen(),
-  FavouritesScreen(),
-  BasicTestingScreen(),
-];
-
 class MainScreen extends StatefulWidget {
   @override
   _MainScreenState createState() => _MainScreenState();
 }
 
 class _MainScreenState extends State<MainScreen> {
+  int _selectedPageIndex = 0;
+  List<Widget> _widgetOptions = <Widget>[
+    HomeScreen(),
+    CatalogScreen(),
+    AddWasteScreen(),
+    FavouritesScreen(),
+    BasicTestingScreen(),
+  ];
+
   void _onItemTapped(int index) {
     setState(() {
-      _selectedIndex = index;
+      _selectedPageIndex = index;
     });
   }
 
@@ -31,9 +31,17 @@ class _MainScreenState extends State<MainScreen> {
     return Scaffold(
       //resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: Text('Wastetastic'),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Icon(Icons.restore_from_trash),
+            Text('Wastetastic'),
+            Icon(Icons.pending_actions_rounded)
+          ],
+        ),
+        centerTitle: true,
       ),
-      body: _widgetOptions.elementAt(_selectedIndex),
+      body: _widgetOptions.elementAt(_selectedPageIndex),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
@@ -57,7 +65,7 @@ class _MainScreenState extends State<MainScreen> {
             label: 'Profile',
           ),
         ],
-        currentIndex: _selectedIndex,
+        currentIndex: _selectedPageIndex,
         selectedItemColor: Colors.amber[800],
         onTap: _onItemTapped,
       ),

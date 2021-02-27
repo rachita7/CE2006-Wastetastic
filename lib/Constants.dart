@@ -14,10 +14,6 @@ const List<Widget> kWasteCategoryTextWidgets = [
     style: TextStyle(color: Colors.white),
   ),
   Text(
-    'LIGHTING WASTE',
-    style: TextStyle(color: Colors.white),
-  ),
-  Text(
     'WASTE TREATMENT',
     style: TextStyle(color: Colors.white),
   ),
