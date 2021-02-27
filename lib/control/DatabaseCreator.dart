@@ -112,23 +112,22 @@ class DatabaseCreator {
     String name, POI_desc, POI_inc_crc, POI_feml_upd_d, address;
     int postalCode;
     GeoPoint location;
-    WasteCategory category = WasteCategory.E_WASTE;
+    WasteCategory category = WasteCategory.LIGHTING_WASTE;
     for (final feature in features.collection) {
       dynamic HTML_description = feature.properties['Description'];
       var table = html.parse(HTML_description);
       name = table.getElementsByTagName('td')[10].text;
-      address = table.getElementsByTagName('td')[6].text +
+      postalCode = int.parse(table.getElementsByTagName('td')[2].text);
+      address = table.getElementsByTagName('td')[5].text +
+          " " +
+          table.getElementsByTagName('td')[6].text +
           " " +
           table.getElementsByTagName('td')[7].text +
           " " +
-          table.getElementsByTagName('td')[8].text +
-          " " +
-          table.getElementsByTagName('td')[9].text +
-          " " +
-          table.getElementsByTagName('td')[8].text;
+          table.getElementsByTagName('td')[12].text;
       POI_desc = table.getElementsByTagName('td')[3].text;
-      POI_inc_crc = table.getElementsByTagName('td')[12].text;
-      POI_feml_upd_d = table.getElementsByTagName('td')[13].text;
+      POI_inc_crc = table.getElementsByTagName('td')[13].text;
+      POI_feml_upd_d = table.getElementsByTagName('td')[14].text;
       location = feature.geometry.geoPoint;
       WastePOI w = WastePOI(
         name: name,
@@ -176,6 +175,7 @@ class DatabaseCreator {
           name: name,
           category: category,
           address: address,
+          location: location,
           POI_postalcode: postalCode,
           POI_description: POI_desc,
           POI_feml_upd_d: POI_feml_upd_d,
