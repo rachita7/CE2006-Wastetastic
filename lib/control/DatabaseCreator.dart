@@ -1,7 +1,4 @@
-import 'dart:convert';
-import 'dart:io';
-import 'dart:developer';
-
+import 'package:flutter/animation.dart';
 import 'package:flutter/services.dart';
 import 'package:geojson/geojson.dart';
 import 'package:geopoint/geopoint.dart';
@@ -10,16 +7,10 @@ import 'package:wastetastic/entity/CarPark.dart';
 import 'package:wastetastic/entity/WasteCategory.dart';
 import 'package:html/parser.dart' as html;
 import 'package:wastetastic/entity/WastePOI.dart';
-import 'package:wastetastic/control/NetworkMgr.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:csv/csv.dart';
+import 'package:geocoder/geocoder.dart';
 
 import '../entity/WasteCategory.dart';
-import '../entity/WasteCategory.dart';
-import '../entity/WasteCategory.dart';
-import '../entity/WasteCategory.dart';
-import '../entity/WastePOI.dart';
-import '../entity/WastePOI.dart';
 import '../entity/WastePOI.dart';
 
 const String carParkDataURL =
@@ -68,39 +59,6 @@ class DatabaseCreator {
 //        print("Latitude: ${feature.geometry.geoPoint.latitude}");
 //        print("Longitude: ${feature.geometry.geoPoint.longitude}");
 //      }
-    }
-  }
-
-  static createDatabaseForCarPark() async {
-    final data = await rootBundle
-        .loadString('assets/databases/hdb-carpark-information.csv');
-    List<List<dynamic>> csvData = const CsvToListConverter().convert(data);
-    print(csvData[0]);
-    String carParkNum, address, carParkType, parkingType, freeParking;
-    GeoPoint location;
-    bool first = true;
-    for (var lst in csvData) {
-      if (first) {
-        first = false;
-        continue;
-      }
-      carParkNum = lst[0];
-      address = lst[1];
-      carParkType = lst[4];
-      parkingType = lst[5];
-      location = GeoPoint.fromLatLng(point: LatLng(lst[12], lst[12]));
-      freeParking = lst[7] == 'NO'
-          ? 'Paid Parking'
-          : 'Free on Sundays and Public Holidays';
-      CarPark c = CarPark(
-        carParkNum: carParkNum,
-        address: address,
-        location: location,
-        carParkType: carParkType,
-        parkingType: parkingType,
-        freeParking: freeParking,
-      );
-      c.printDetails();
     }
   }
 
@@ -218,4 +176,96 @@ class DatabaseCreator {
       w.printDetails();
     }
   }
+
+  static createDatabaseForGeneralWasteCollectors() async {
+    final data = await rootBundle
+        .loadString('assets/databases/listing-of-general-waste-collectors.csv');
+    List<List<dynamic>> csvData = const CsvToListConverter().convert(data);
+    print(csvData[0]);
+    WasteCategory category = WasteCategory.NORMAL_WASTE;
+    String name, address, POI_desc, complete_address;
+    int postalCode;
+    GeoPoint location;
+    bool first = true;
+    var coordinates;
+    for (var lst in csvData) {
+      if (first) {
+        first = false;
+        continue;
+      }
+      name = lst[0];
+      complete_address = lst[1];
+      postalCode = int.parse(complete_address.substring(
+          complete_address.length - 6, complete_address.length));
+      coordinates =
+          (await Geocoder.local.findAddressesFromQuery(complete_address))
+              .first
+              .coordinates;
+      complete_address =
+          complete_address.substring(0, complete_address.length - 6);
+      location = GeoPoint.fromLatLng(
+          point: LatLng(coordinates.latitude, coordinates.longitude));
+      WastePOI w = WastePOI(
+        name: name,
+        category: category,
+        POI_postalcode: postalCode,
+        location: location,
+        address: complete_address,
+      );
+      w.printDetails();
+    }
+  }
+
+  static createDatabaseForCarPark() async {
+    final data = await rootBundle
+        .loadString('assets/databases/hdb-carpark-information.csv');
+    List<List<dynamic>> csvData = const CsvToListConverter().convert(data);
+    print(csvData[0]);
+    String carParkNum, address, carParkType, parkingType, freeParking;
+    GeoPoint location;
+    bool first = true;
+    for (var lst in csvData) {
+      if (first) {
+        first = false;
+        continue;
+      }
+      carParkNum = lst[0];
+      address = lst[1];
+      carParkType = lst[4];
+      parkingType = lst[5];
+      location = GeoPoint.fromLatLng(point: LatLng(lst[12], lst[12]));
+      freeParking = lst[7] == 'NO'
+          ? 'Paid Parking'
+          : 'Free on Sundays and Public Holidays';
+      CarPark c = CarPark(
+        carParkNum: carParkNum,
+        address: address,
+        location: location,
+        carParkType: carParkType,
+        parkingType: parkingType,
+        freeParking: freeParking,
+      );
+      c.printDetails();
+    }
+  }
 }
+
+//IN CASE GOOGLE API IS NEEDED
+//    name = csvData[6][0];
+//    print('Name: ' + name);
+//    complete_address = csvData[6][1];
+//    postalCode = int.parse(complete_address.substring(
+//        complete_address.length - 6, complete_address.length));
+//    print('Postal Code: ' + postalCode.toString());
+//    complete_address =
+//        complete_address.substring(0, complete_address.length - 6);
+//    print('Address: ' + complete_address);
+//    coordinates =
+//        (await Geocoder.google('GOOGLE-API-KEY')
+//                .findAddressesFromQuery(complete_address))
+//            .first
+//            .coordinates;
+//    location = GeoPoint.fromLatLng(
+//        point: LatLng(coordinates.latitude, coordinates.longitude));
+//    print('Latitude: ' + location.latitude.toString());
+//    print('Logintude: ' + location.longitude.toString());
