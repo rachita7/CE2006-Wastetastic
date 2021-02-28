@@ -1,24 +1,16 @@
 import 'package:flutter/material.dart';
 
-const List<Widget> kWasteCategoryTextWidgets = [
-  Text(
-    'NORMAL WASTE',
-    style: TextStyle(color: Colors.white),
+const List<String> kWasteCategory = [
+  'NORMAL WASTE',
+  'E WASTE',
+  'LIGHTING WASTE',
+  'WASTE TREATMENT',
+  'CASH FOR TRASH'
+];
+
+const kContainerElevation = [
+  BoxShadow(
+    offset: Offset(0.0, 1.0), //(x,y)
+    blurRadius: 6.0,
   ),
-  Text(
-    'E WASTE',
-    style: TextStyle(color: Colors.white),
-  ),
-  Text(
-    'LIGHTING WASTE',
-    style: TextStyle(color: Colors.white),
-  ),
-  Text(
-    'WASTE TREATMENT',
-    style: TextStyle(color: Colors.white),
-  ),
-  Text(
-    'CASH FOR TRASH',
-    style: TextStyle(color: Colors.white),
-  )
 ];

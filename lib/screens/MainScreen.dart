@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:wastetastic/screens/ProfileScreen.dart';
 import 'FavouritesScreen.dart';
 import 'HomeScreen.dart';
 import 'AddWasteScreen.dart';
 import 'BasicTestingScreen.dart';
 import 'CatalogScreen.dart';
+import 'ProfileScreen.dart';
 
 class MainScreen extends StatefulWidget {
   @override
@@ -17,6 +19,7 @@ class _MainScreenState extends State<MainScreen> {
     CatalogScreen(),
     AddWasteScreen(),
     FavouritesScreen(),
+    ProfileScreen(),
     BasicTestingScreen(),
   ];
 
@@ -64,9 +67,14 @@ class _MainScreenState extends State<MainScreen> {
             icon: Icon(Icons.account_circle),
             label: 'Profile',
           ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.build),
+            label: 'Test Screen',
+          ),
         ],
         currentIndex: _selectedPageIndex,
-        selectedItemColor: Colors.amber[800],
+        selectedItemColor: Colors.lightGreenAccent,
+        unselectedItemColor: Colors.grey,
         onTap: _onItemTapped,
       ),
     );
