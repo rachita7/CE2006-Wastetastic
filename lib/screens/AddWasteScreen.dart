@@ -105,10 +105,7 @@ class _AddWasteScreenState extends State<AddWasteScreen> {
                           child: Text(value),
                         );
                       }).toList(),
-                    )
-                    /*],
-                    )*/
-                    ,
+                    ),
                     SizedBox(
                       height: 20.0,
                     ),

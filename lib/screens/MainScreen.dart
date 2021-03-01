@@ -8,20 +8,13 @@ import 'CatalogScreen.dart';
 import 'ProfileScreen.dart';
 
 class MainScreen extends StatefulWidget {
+  static const String id = 'MainScreen';
   @override
   _MainScreenState createState() => _MainScreenState();
 }
 
 class _MainScreenState extends State<MainScreen> {
   int _selectedPageIndex = 0;
-  List<Widget> _widgetOptions = <Widget>[
-    HomeScreen(),
-    CatalogScreen(),
-    AddWasteScreen(),
-    FavouritesScreen(),
-    ProfileScreen(),
-    BasicTestingScreen(),
-  ];
 
   void _onItemTapped(int index) {
     setState(() {
@@ -31,6 +24,14 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
+    List<Widget> _widgetOptions = <Widget>[
+      HomeScreen(),
+      CatalogScreen(),
+      AddWasteScreen(),
+      FavouritesScreen(),
+      ProfileScreen(),
+      BasicTestingScreen(),
+    ];
     return Scaffold(
       //resizeToAvoidBottomInset: false,
       appBar: AppBar(

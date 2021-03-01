@@ -34,7 +34,6 @@ class header_card extends StatelessWidget {
 
 class POI_card extends StatelessWidget {
   final String name;
-  final String location;
   final int postalcode;
   final String address;
   final String description;
@@ -43,7 +42,6 @@ class POI_card extends StatelessWidget {
 
   POI_card(
       {this.name,
-      this.location,
       this.address,
       this.postalcode,
       this.description,
@@ -65,7 +63,7 @@ class POI_card extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text("$name, $location \n$address. Singapore $postalcode "
+            Text("$name \n$address. Singapore $postalcode "
                 "\n$description \n$wasteCategory"),
             VerticalDivider(
               width: 10.0,
@@ -75,7 +73,7 @@ class POI_card extends StatelessWidget {
             IconButton(
               onPressed: () {
                 print("hey hey");
-                //@todo add function to un-favourite POI
+                //@todo add function to favourite/un-favourite POI
               },
               icon: Icon(
                 Icons.star,

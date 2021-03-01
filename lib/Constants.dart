@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:geopoint/geopoint.dart';
+import 'package:wastetastic/entity/WasteCategory.dart';
+import 'package:wastetastic/entity/WastePOI.dart';
+import 'package:latlong/latlong.dart';
 
 const List<String> kWasteCategory = [
   'NORMAL WASTE',
@@ -14,3 +18,11 @@ const kContainerElevation = [
     blurRadius: 6.0,
   ),
 ];
+
+WastePOI sample = WastePOI(
+  name: "WastePOI sample",
+  category: WasteCategory.LIGHTING_WASTE,
+  location: GeoPoint.fromLatLng(point: LatLng(122.9, 455.0)),
+  POI_postalcode: 827373,
+  POI_description: "ajsjs",
+);
