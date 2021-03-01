@@ -45,3 +45,8 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
     );
   }
 }
+
+//List<WastePOI> favorites = retrieveFavoritesFromDatabase(username)
+//List<POI_card> card_list =[]
+//for (WastePOI w in favorites):
+//  card_list.add(POI_card(name: w.name, address: w.address, postalCode: w.postalCode, description: w.POI_desc,);
