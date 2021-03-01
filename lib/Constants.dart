@@ -19,10 +19,70 @@ const kContainerElevation = [
   ),
 ];
 
-WastePOI sample = WastePOI(
+WastePOI kSample = WastePOI(
   name: "WastePOI sample",
   category: WasteCategory.LIGHTING_WASTE,
-  location: GeoPoint.fromLatLng(point: LatLng(122.9, 455.0)),
+  location: GeoPoint.fromLatLng(name: "Position", point: LatLng(51.0, 0.0)),
   POI_postalcode: 827373,
   POI_description: "ajsjs",
+  address: "PlaceHolder address",
 );
+
+WastePOI kSample2 = WastePOI(
+  name: "WastePOI sample2",
+  category: WasteCategory.E_WASTE,
+  location: GeoPoint.fromLatLng(name: "Position", point: LatLng(51.0, 0.0)),
+  POI_postalcode: 827373,
+  POI_description: "ajsjs",
+  address: "PlaceHolder address",
+);
+
+WastePOI kSample3 = WastePOI(
+  name: "WastePOI sample3",
+  category: WasteCategory.NORMAL_WASTE,
+  location: GeoPoint.fromLatLng(name: "Position", point: LatLng(51.0, 0.0)),
+  POI_postalcode: 827373,
+  POI_description: "ajsjs",
+  address: "PlaceHolder address",
+);
+WastePOI kSample4 = WastePOI(
+  name: "WastePOI sample4",
+  category: WasteCategory.WASTE_TREATMENT,
+  location: GeoPoint.fromLatLng(name: "Position", point: LatLng(51.0, 0.0)),
+  POI_postalcode: 827373,
+  POI_description: "ajsjs",
+  address: "PlaceHolder address",
+);
+WastePOI kSample5 = WastePOI(
+  name: "WastePOI sample5",
+  category: WasteCategory.CASH_FOR_TRASH,
+  location: GeoPoint.fromLatLng(name: "Position", point: LatLng(51.0, 0.0)),
+  POI_postalcode: 827373,
+  POI_description: "ajsjs",
+  address: "PlaceHolder address",
+);
+
+WastePOI kSample6 = WastePOI(
+  name: "WastePOI sample6",
+  category: WasteCategory.CASH_FOR_TRASH,
+  location: GeoPoint.fromLatLng(name: "Position", point: LatLng(51.0, 0.0)),
+  POI_postalcode: 827373,
+  POI_description: "ajsjs",
+  address: "PlaceHolder address",
+);
+List<WastePOI> kWastePOI_List = [
+  kSample,
+  kSample2,
+  kSample3,
+  kSample4,
+  kSample5,
+  kSample6
+];
+
+List<WastePOI> kFav_POI_list = [
+  kSample,
+  kSample2,
+  kSample3,
+  kSample4,
+  kSample5
+];

@@ -12,7 +12,7 @@ class POI_DetialScreen extends StatefulWidget {
 class _POI_DetialScreenState extends State<POI_DetialScreen> {
   @override
   Widget build(BuildContext context) {
-    final String name = ModalRoute.of(context)
+    final WastePOI POI = ModalRoute.of(context)
         .settings
         .arguments; //@todo change type to WastePOI
     return Scaffold(
@@ -30,7 +30,7 @@ class _POI_DetialScreenState extends State<POI_DetialScreen> {
       body: Container(
         child: Column(children: [
           header_card(
-            title: name,
+            title: POI.POI_name,
           ),
           Expanded(
             child: SingleChildScrollView(

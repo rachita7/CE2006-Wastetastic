@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:wastetastic/screens/Reusable_Widgets.dart';
 import 'POI_DetailScreen.dart';
+import 'package:wastetastic/Constants.dart';
+import 'package:wastetastic/entity/WastePOI.dart';
 
 class FavouritesScreen extends StatefulWidget {
   @override
@@ -11,9 +13,36 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
   @override
   Widget build(BuildContext context) {
     //List<WastePOI> favorites = retrieveFavoritesFromDatabase(username)
-    //List<POI_card> fav_card_list =[]
-    //for (WastePOI w in favorites):
-    //  card_list.add(POI_card(name: w.name, address: w.address, postalCode: w.postalCode, description: w.POI_desc, TO_POI_page: Waste_page(w),);
+    List<POI_card> fav_card_list = [];
+    for (WastePOI w in kFav_POI_list) {
+      String POICategory = w.wasteCategory.toString().split('.').last;
+      POICategory = POICategory.replaceAll('_', ' ');
+      fav_card_list.add(
+        POI_card(
+          name: w.POI_name,
+          address: w.address,
+          postalcode: w.POI_postalcode,
+          description: w.POI_description,
+          wasteCategory: POICategory,
+          fav: true,
+          TO_POI_page: () {
+            Navigator.pushNamed(
+              context,
+              POI_DetialScreen.id,
+              arguments: w,
+            );
+          },
+          FavFunct: () {
+            setState(() {
+              if (kFav_POI_list.contains(w))
+                kFav_POI_list.remove(w);
+              else
+                kFav_POI_list.add(w);
+            });
+          },
+        ),
+      );
+    }
 
     return Column(
       children: [
@@ -22,9 +51,8 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
         ),
         Expanded(
           child: SingleChildScrollView(
-            child: Column(
-              children: //fav_card_list
-                  [
+            child: Column(children: fav_card_list
+                /*  [
                 POI_card(
                   name: 'POI1',
                   address: 'address',
@@ -34,7 +62,7 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
                     Navigator.pushNamed(
                       context,
                       POI_DetialScreen.id,
-                      arguments: "name",
+                      arguments: kSample,
                     );
                   },
                 ),
@@ -50,9 +78,9 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
                   postalcode: 321045,
                   description: 'description',
                 ),
-              ], //@todo logic to create all of user favourite POI_cards
-              //@todo create function/logic to go to POI page from Favourites page when pressed
-            ),
+              ],*/ //@todo logic to create all of user favourite POI_cards
+                //@todo create function/logic to go to POI page from Favourites page when pressed
+                ),
           ),
         )
       ],
