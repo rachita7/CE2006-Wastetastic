@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wastetastic/control/CatalogMgr.dart';
 import 'package:wastetastic/control/DatabaseCreator.dart';
 
 class BasicTestingScreen extends StatefulWidget {
@@ -13,7 +14,8 @@ class _BasicTestingScreenState extends State<BasicTestingScreen> {
     return Scaffold(
       body: FloatingActionButton(
         onPressed: () {
-          DatabaseCreator.createDatabaseForEWaste();
+          //DatabaseCreator.createDatabaseForEWaste();
+          CatalogMgr.readAllWastePOI();
         },
       ),
     );
