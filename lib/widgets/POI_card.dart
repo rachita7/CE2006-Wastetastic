@@ -1,36 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wastetastic/entity/WasteCategory.dart';
 import 'package:wastetastic/Constants.dart';
-
-class header_card extends StatelessWidget {
-  final String title;
-
-  header_card({this.title});
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(top: 20.0, bottom: 10.0),
-          child: Text(
-            title,
-            style: TextStyle(fontSize: 20),
-          ),
-        ),
-        Divider(
-          height: 5.0,
-          thickness: 5.0,
-          indent: 100.0,
-          endIndent: 100.0,
-        ),
-        SizedBox(
-          height: 20.0,
-        ),
-      ],
-    );
-  }
-}
 
 class POI_card extends StatelessWidget {
   final String name;
@@ -54,10 +23,10 @@ class POI_card extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: TO_POI_page,
+    return RawMaterialButton(
+      onPressed: TO_POI_page,
       child: Container(
-        padding: EdgeInsets.all(15.0),
+        padding: EdgeInsets.all(20.0),
         margin: EdgeInsets.all(10.0),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10.0),
@@ -76,8 +45,6 @@ class POI_card extends StatelessWidget {
             ),
             IconButton(
               onPressed: FavFunct,
-              //@todo add function to favourite/un-favourite POI
-
               icon: Icon(
                 Icons.star,
                 color: fav ? Colors.yellow : Colors.white,

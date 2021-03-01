@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:wastetastic/Constants.dart';
-import 'package:wastetastic/screens/Reusable_Widgets.dart';
+import 'package:wastetastic/widgets/header_card.dart';
 
 final _formKey = GlobalKey<FormState>();
 String selectedTime;
@@ -125,6 +125,30 @@ class _AddWasteScreenState extends State<AddWasteScreen> {
                               Scaffold.of(context).showSnackBar(
                                   SnackBar(content: Text('Processing Data')));
                               //@todo code to add details to user waste records
+
+                              //Dialog box
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext dialogContext) {
+                                  return AlertDialog(
+                                    title:
+                                        Center(child: Text('New Record Added')),
+                                    content: Text(
+                                      "Yaaay!! You have added a new Waste Record to "
+                                      "your account",
+                                    ),
+                                    actions: <Widget>[
+                                      new FlatButton(
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                        textColor: Colors.grey,
+                                        child: const Text('Continue'),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
                             }
                           },
                           child: Text('Add Record'),

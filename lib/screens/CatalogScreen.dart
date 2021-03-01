@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'Reusable_Widgets.dart';
+import 'package:wastetastic/widgets/POI_card.dart';
 import 'package:wastetastic/Constants.dart';
 import 'package:wastetastic/entity/WastePOI.dart';
 import 'POI_DetailScreen.dart';
+import 'package:wastetastic/widgets/header_card.dart';
 
 class CatalogScreen extends StatefulWidget {
   @override
@@ -41,6 +42,8 @@ class _CatalogScreenState extends State<CatalogScreen> {
                   kFav_POI_list.remove(w);
                 else
                   kFav_POI_list.add(w);
+
+                //@todo add function to favourite/un-favourite POI
               });
             },
           ),

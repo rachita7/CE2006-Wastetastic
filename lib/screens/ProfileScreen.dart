@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wastetastic/Constants.dart';
-import 'Reusable_Widgets.dart';
+import 'package:wastetastic/widgets/header_card.dart';
 
 class ProfileScreen extends StatefulWidget {
   @override
@@ -74,30 +74,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 header_card(
                   title: 'Waste Disposal Data Analysis',
                 )
-                /*POI_card(
-                  name: 'POI1',
-                  address: 'haha',
-                  postalcode: 321045,
-                  description: 'yooo',
-                ),
-                POI_card(
-                  name: 'POI1',
-                  address: 'haha',
-                  postalcode: 321045,
-                  description: 'yooo',
-                ),
-                POI_card(
-                  name: 'POI1',
-                  address: 'haha',
-                  postalcode: 321045,
-                  description: 'yooo',
-                ),
-                POI_card(
-                  name: 'POI1',
-                  address: 'haha',
-                  postalcode: 321045,
-                  description: 'yooo',
-                ),*/
               ],
             ),
           ),
