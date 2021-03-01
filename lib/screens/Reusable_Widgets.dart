@@ -37,8 +37,10 @@ class POI_card extends StatelessWidget {
   final int postalcode;
   final String address;
   final String description;
-  final WasteCategory wasteCategory;
+  final String wasteCategory;
   final Function TO_POI_page;
+  final bool fav;
+  final Function FavFunct;
 
   POI_card(
       {this.name,
@@ -46,7 +48,9 @@ class POI_card extends StatelessWidget {
       this.postalcode,
       this.description,
       this.wasteCategory,
-      this.TO_POI_page});
+      this.TO_POI_page,
+      this.fav,
+      this.FavFunct});
 
   @override
   Widget build(BuildContext context) {
@@ -64,20 +68,19 @@ class POI_card extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text("$name \n$address. Singapore $postalcode "
-                "\n$description \n$wasteCategory"),
+                "\n$description \nCategory: $wasteCategory"),
             VerticalDivider(
               width: 10.0,
               thickness: 10.0,
               color: Colors.red,
             ),
             IconButton(
-              onPressed: () {
-                print("hey hey");
-                //@todo add function to favourite/un-favourite POI
-              },
+              onPressed: FavFunct,
+              //@todo add function to favourite/un-favourite POI
+
               icon: Icon(
                 Icons.star,
-                color: Colors.yellow,
+                color: fav ? Colors.yellow : Colors.white,
               ),
             ),
           ],
