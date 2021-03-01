@@ -13,7 +13,7 @@ class _BasicTestingScreenState extends State<BasicTestingScreen> {
     return Scaffold(
       body: FloatingActionButton(
         onPressed: () {
-          DatabaseCreator.createDatabaseForGeneralWasteCollectors();
+          DatabaseCreator.createDatabaseForEWaste();
         },
       ),
     );

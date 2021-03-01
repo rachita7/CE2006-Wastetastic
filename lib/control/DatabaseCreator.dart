@@ -1,7 +1,6 @@
-import 'package:flutter/animation.dart';
 import 'package:flutter/services.dart';
 import 'package:geojson/geojson.dart';
-import 'package:geopoint/geopoint.dart';
+import 'package:geopoint/geopoint.dart' as gp;
 import 'package:latlong/latlong.dart';
 import 'package:wastetastic/entity/CarPark.dart';
 import 'package:wastetastic/entity/WasteCategory.dart';
@@ -9,6 +8,7 @@ import 'package:html/parser.dart' as html;
 import 'package:wastetastic/entity/WastePOI.dart';
 import 'package:csv/csv.dart';
 import 'package:geocoder/geocoder.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../entity/WasteCategory.dart';
 import '../entity/WastePOI.dart';
@@ -17,6 +17,8 @@ const String carParkDataURL =
     'https://data.gov.sg/api/action/datastore_search?resource_id=139a3035-e624-4f56-b63f-89ae28d4ae4c&limit=4094';
 
 class DatabaseCreator {
+  static final _firestore = FirebaseFirestore.instance;
+
   static createDatabaseForEWaste() async {
     String rawGeoJson = await rootBundle
         .loadString('assets/databases/e-waste-recycling-geojson.geojson');
@@ -24,7 +26,7 @@ class DatabaseCreator {
     //print(jsonDecode(rawGeoJson));
     String name, POI_desc, POI_inc_crc, POI_feml_upd_d, address;
     int postalCode;
-    GeoPoint location;
+    gp.GeoPoint location;
     WasteCategory category = WasteCategory.E_WASTE;
     for (final feature in features.collection) {
       dynamic HTML_description = feature.properties['Description'];
@@ -39,7 +41,7 @@ class DatabaseCreator {
           " " +
           table.getElementsByTagName('td')[9].text +
           " " +
-          table.getElementsByTagName('td')[8].text;
+          table.getElementsByTagName('td')[10].text;
       POI_desc = table.getElementsByTagName('td')[11].text;
       POI_inc_crc = table.getElementsByTagName('td')[12].text;
       POI_feml_upd_d = table.getElementsByTagName('td')[13].text;
@@ -55,6 +57,17 @@ class DatabaseCreator {
         POI_feml_upd_d: POI_feml_upd_d,
       );
       w.printDetails();
+
+      _firestore.collection('WastePOI').add({
+        'name': name,
+        'category': category.toString(),
+        'location': GeoPoint(location.latitude, location.longitude),
+        'address': address,
+        'POI_postalcode': postalCode,
+        'POI_description': POI_desc,
+        'POI_inc_crc': POI_inc_crc,
+        'POI_feml_upd_d': POI_feml_upd_d,
+      });
 //      if (feature.type == GeoJsonFeatureType.point) {
 //        print("Latitude: ${feature.geometry.geoPoint.latitude}");
 //        print("Longitude: ${feature.geometry.geoPoint.longitude}");
@@ -69,7 +82,7 @@ class DatabaseCreator {
     //print(jsonDecode(rawGeoJson));
     String name, POI_desc, POI_inc_crc, POI_feml_upd_d, address;
     int postalCode;
-    GeoPoint location;
+    gp.GeoPoint location;
     WasteCategory category = WasteCategory.LIGHTING_WASTE;
     for (final feature in features.collection) {
       dynamic HTML_description = feature.properties['Description'];
@@ -97,6 +110,7 @@ class DatabaseCreator {
         POI_inc_crc: POI_inc_crc,
         POI_feml_upd_d: POI_feml_upd_d,
       );
+
       w.printDetails();
 //      if (feature.type == GeoJsonFeatureType.point) {
 //        print("Latitude: ${feature.geometry.geoPoint.latitude}");
@@ -111,7 +125,7 @@ class DatabaseCreator {
     final features = await featuresFromGeoJson(rawGeoJson);
     String name, POI_desc, POI_inc_crc, POI_feml_upd_d, address;
     int postalCode;
-    GeoPoint location;
+    gp.GeoPoint location;
     WasteCategory category = WasteCategory.WASTE_TREATMENT;
     for (final feature in features.collection) {
       dynamic HTML_description = feature.properties['Description'];
@@ -148,7 +162,7 @@ class DatabaseCreator {
     final features = await featuresFromGeoJson(rawGeoJson);
     String name, address, POI_desc, POI_inc_crc, POI_feml_upd_d;
     int postalCode;
-    GeoPoint location;
+    gp.GeoPoint location;
     WasteCategory category = WasteCategory.CASH_FOR_TRASH;
     for (final feature in features.collection) {
       dynamic HTML_Description = feature.properties['Description'];
@@ -185,7 +199,7 @@ class DatabaseCreator {
     WasteCategory category = WasteCategory.NORMAL_WASTE;
     String name, address, POI_desc, complete_address;
     int postalCode;
-    GeoPoint location;
+    gp.GeoPoint location;
     bool first = true;
     var coordinates;
     for (var lst in csvData) {
@@ -203,7 +217,7 @@ class DatabaseCreator {
               .coordinates;
       complete_address =
           complete_address.substring(0, complete_address.length - 6);
-      location = GeoPoint.fromLatLng(
+      location = gp.GeoPoint.fromLatLng(
           point: LatLng(coordinates.latitude, coordinates.longitude));
       WastePOI w = WastePOI(
         name: name,
@@ -222,7 +236,7 @@ class DatabaseCreator {
     List<List<dynamic>> csvData = const CsvToListConverter().convert(data);
     print(csvData[0]);
     String carParkNum, address, carParkType, parkingType, freeParking;
-    GeoPoint location;
+    gp.GeoPoint location;
     bool first = true;
     for (var lst in csvData) {
       if (first) {
@@ -233,7 +247,7 @@ class DatabaseCreator {
       address = lst[1];
       carParkType = lst[4];
       parkingType = lst[5];
-      location = GeoPoint.fromLatLng(point: LatLng(lst[12], lst[12]));
+      location = gp.GeoPoint.fromLatLng(point: LatLng(lst[12], lst[12]));
       freeParking = lst[7] == 'NO'
           ? 'Paid Parking'
           : 'Free on Sundays and Public Holidays';
@@ -265,7 +279,7 @@ class DatabaseCreator {
 //                .findAddressesFromQuery(complete_address))
 //            .first
 //            .coordinates;
-//    location = GeoPoint.fromLatLng(
+//    location = gp.GeoPoint.fromLatLng(
 //        point: LatLng(coordinates.latitude, coordinates.longitude));
 //    print('Latitude: ' + location.latitude.toString());
 //    print('Logintude: ' + location.longitude.toString());
