@@ -23,6 +23,7 @@ class DatabaseCreator {
     String rawGeoJson = await rootBundle
         .loadString('assets/databases/e-waste-recycling-geojson.geojson');
     final features = await featuresFromGeoJson(rawGeoJson);
+    int count = 0;
     //print(jsonDecode(rawGeoJson));
     String name, POI_desc, POI_inc_crc, POI_feml_upd_d, address;
     int postalCode;
@@ -58,7 +59,7 @@ class DatabaseCreator {
       );
       w.printDetails();
 
-      _firestore.collection('WastePOI').add({
+      _firestore.collection('WastePOI').doc('E_WASTE_$count').set({
         'name': name,
         'category': category.toString(),
         'location': GeoPoint(location.latitude, location.longitude),
@@ -68,6 +69,7 @@ class DatabaseCreator {
         'POI_inc_crc': POI_inc_crc,
         'POI_feml_upd_d': POI_feml_upd_d,
       });
+      count++;
 //      if (feature.type == GeoJsonFeatureType.point) {
 //        print("Latitude: ${feature.geometry.geoPoint.latitude}");
 //        print("Longitude: ${feature.geometry.geoPoint.longitude}");
@@ -79,6 +81,7 @@ class DatabaseCreator {
     String rawGeoJson = await rootBundle.loadString(
         'assets/databases/lighting-waste-collection-points-geojson.geojson');
     final features = await featuresFromGeoJson(rawGeoJson);
+    int count = 0;
     //print(jsonDecode(rawGeoJson));
     String name, POI_desc, POI_inc_crc, POI_feml_upd_d, address;
     int postalCode;
@@ -112,6 +115,18 @@ class DatabaseCreator {
       );
 
       w.printDetails();
+
+      _firestore.collection('WastePOI').doc('LIGHTING_WASTE_$count').set({
+        'name': name,
+        'category': category.toString(),
+        'location': GeoPoint(location.latitude, location.longitude),
+        'address': address,
+        'POI_postalcode': postalCode,
+        'POI_description': POI_desc,
+        'POI_inc_crc': POI_inc_crc,
+        'POI_feml_upd_d': POI_feml_upd_d,
+      });
+      count++;
 //      if (feature.type == GeoJsonFeatureType.point) {
 //        print("Latitude: ${feature.geometry.geoPoint.latitude}");
 //        print("Longitude: ${feature.geometry.geoPoint.longitude}");
@@ -123,6 +138,7 @@ class DatabaseCreator {
     String rawGeoJson = await rootBundle
         .loadString('assets/databases/waste-treatment-geojson.geojson');
     final features = await featuresFromGeoJson(rawGeoJson);
+    int count = 0;
     String name, POI_desc, POI_inc_crc, POI_feml_upd_d, address;
     int postalCode;
     gp.GeoPoint location;
@@ -153,6 +169,18 @@ class DatabaseCreator {
           POI_feml_upd_d: POI_feml_upd_d,
           POI_inc_crc: POI_inc_crc);
       w.printDetails();
+
+      _firestore.collection('WastePOI').doc('WASTE_TREATMENT_$count').set({
+        'name': name,
+        'category': category.toString(),
+        'location': GeoPoint(location.latitude, location.longitude),
+        'address': address,
+        'POI_postalcode': postalCode,
+        'POI_description': POI_desc,
+        'POI_inc_crc': POI_inc_crc,
+        'POI_feml_upd_d': POI_feml_upd_d,
+      });
+      count++;
     }
   }
 
@@ -160,6 +188,7 @@ class DatabaseCreator {
     String rawGeoJson = await rootBundle
         .loadString("assets/databases/cash-for-trash-geojson.geojson");
     final features = await featuresFromGeoJson(rawGeoJson);
+    int count = 0;
     String name, address, POI_desc, POI_inc_crc, POI_feml_upd_d;
     int postalCode;
     gp.GeoPoint location;
@@ -188,6 +217,18 @@ class DatabaseCreator {
           POI_postalcode: postalCode,
           location: location);
       w.printDetails();
+
+      _firestore.collection('WastePOI').doc('CASH_FOR_TRASH_$count').set({
+        'name': name,
+        'category': category.toString(),
+        'location': GeoPoint(location.latitude, location.longitude),
+        'address': address,
+        'POI_postalcode': postalCode,
+        'POI_description': POI_desc,
+        'POI_inc_crc': POI_inc_crc,
+        'POI_feml_upd_d': POI_feml_upd_d,
+      });
+      count++;
     }
   }
 
@@ -197,7 +238,8 @@ class DatabaseCreator {
     List<List<dynamic>> csvData = const CsvToListConverter().convert(data);
     print(csvData[0]);
     WasteCategory category = WasteCategory.NORMAL_WASTE;
-    String name, address, POI_desc, complete_address;
+    int count = 0;
+    String name, address, complete_address;
     int postalCode;
     gp.GeoPoint location;
     bool first = true;
@@ -227,6 +269,18 @@ class DatabaseCreator {
         address: complete_address,
       );
       w.printDetails();
+
+      _firestore.collection('WastePOI').doc('NORMAL_WASTE_$count').set({
+        'name': name,
+        'category': category.toString(),
+        'location': GeoPoint(location.latitude, location.longitude),
+        'address': complete_address,
+        'POI_postalcode': postalCode,
+        'POI_description': 'Normal Waste Disposal',
+        'POI_inc_crc': 'No inc_crc',
+        'POI_feml_upd_d': 'No feml_upd_d',
+      });
+      count++;
     }
   }
 
@@ -260,6 +314,14 @@ class DatabaseCreator {
         freeParking: freeParking,
       );
       c.printDetails();
+
+      _firestore.collection('CarPark').doc(carParkNum).set({
+        'address': address,
+        'location': GeoPoint(location.latitude, location.longitude),
+        'carParkType': carParkType,
+        'parkingType': parkingType,
+        'freeParking': freeParking,
+      });
     }
   }
 }

@@ -12,11 +12,18 @@ class _BasicTestingScreenState extends State<BasicTestingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: FloatingActionButton(
-        onPressed: () {
-          //DatabaseCreator.createDatabaseForEWaste();
-          CatalogMgr.readAllWastePOI();
-        },
+      body: Center(
+        child: FloatingActionButton(
+          onPressed: () {
+            //DatabaseCreator.createDatabaseForEWaste();
+//            DatabaseCreator.createDatabaseForLightingWaste();
+//            DatabaseCreator.createDatabaseForWasteTreatment();
+//            DatabaseCreator.createDatabaseForCashForTrash();
+            //DatabaseCreator.createDatabaseForGeneralWasteCollectors();
+            DatabaseCreator.createDatabaseForCarPark();
+            //CatalogMgr.readAllWastePOI();
+          },
+        ),
       ),
     );
   }
