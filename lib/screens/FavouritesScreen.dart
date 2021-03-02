@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:wastetastic/screens/Reusable_Widgets.dart';
+import 'package:wastetastic/widgets/POI_card.dart';
 import 'POI_DetailScreen.dart';
 import 'package:wastetastic/Constants.dart';
 import 'package:wastetastic/entity/WastePOI.dart';
+import 'package:wastetastic/widgets/header_card.dart';
 
 class FavouritesScreen extends StatefulWidget {
   @override
@@ -38,6 +39,7 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
                 kFav_POI_list.remove(w);
               else
                 kFav_POI_list.add(w);
+              //@todo add function to favourite/un-favourite POI
             });
           },
         ),

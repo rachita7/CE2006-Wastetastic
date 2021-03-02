@@ -6,6 +6,7 @@ import 'AddWasteScreen.dart';
 import 'BasicTestingScreen.dart';
 import 'CatalogScreen.dart';
 import 'ProfileScreen.dart';
+import 'RecyleInfo.dart';
 
 class MainScreen extends StatefulWidget {
   static const String id = 'MainScreen';
@@ -38,7 +39,17 @@ class _MainScreenState extends State<MainScreen> {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Icon(Icons.restore_from_trash),
+            GestureDetector(
+              child: Icon(Icons.restore_from_trash),
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext dialogContext) {
+                    return RecycleInfo();
+                  },
+                );
+              },
+            ),
             Text('Wastetastic'),
             Icon(Icons.pending_actions_rounded)
           ],

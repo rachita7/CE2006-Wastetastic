@@ -14,7 +14,7 @@ const List<String> kWasteCategory = [
 
 const kContainerElevation = [
   BoxShadow(
-    offset: Offset(0.0, 1.0), //(x,y)
+    offset: Offset(0.0, 5.0), //(x,y)
     blurRadius: 6.0,
   ),
 ];
@@ -45,6 +45,7 @@ WastePOI kSample3 = WastePOI(
   POI_description: "ajsjs",
   address: "PlaceHolder address",
 );
+
 WastePOI kSample4 = WastePOI(
   name: "WastePOI sample4",
   category: WasteCategory.WASTE_TREATMENT,
@@ -53,6 +54,7 @@ WastePOI kSample4 = WastePOI(
   POI_description: "ajsjs",
   address: "PlaceHolder address",
 );
+
 WastePOI kSample5 = WastePOI(
   name: "WastePOI sample5",
   category: WasteCategory.CASH_FOR_TRASH,
@@ -70,6 +72,7 @@ WastePOI kSample6 = WastePOI(
   POI_description: "ajsjs",
   address: "PlaceHolder address",
 );
+
 List<WastePOI> kWastePOI_List = [
   kSample,
   kSample2,
