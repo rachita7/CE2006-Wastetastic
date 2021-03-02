@@ -2,9 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:wastetastic/Constants.dart';
 import 'package:wastetastic/entity/WastePOI.dart';
 import 'package:flutter/material.dart';
-import 'package:wastetastic/screens/CatalogScreen.dart';
-import 'package:wastetastic/screens/HomeScreen.dart';
-import 'package:wastetastic/widgets/header_card.dart';
+import 'package:wastetastic/screens/CarParkScreen.dart';
+import 'package:wastetastic/widgets/HeaderCard.dart';
 
 class POI_DetialScreen extends StatefulWidget {
   static const String id = 'POI_detail_screen';
@@ -15,20 +14,11 @@ class POI_DetialScreen extends StatefulWidget {
 class _POI_DetialScreenState extends State<POI_DetialScreen> {
   @override
   Widget build(BuildContext context) {
-    final WastePOI POI = ModalRoute.of(context)
-        .settings
-        .arguments; //@todo change type to WastePOI
+    final WastePOI POI = ModalRoute.of(context).settings.arguments;
 
     return Scaffold(
       appBar: AppBar(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Icon(Icons.restore_from_trash),
-            Text('Wastetastic'),
-            Icon(Icons.pending_actions_rounded)
-          ],
-        ),
+        title: Text('Wastetastic'),
         centerTitle: true,
       ),
       body: Container(
@@ -58,8 +48,8 @@ class _POI_DetialScreenState extends State<POI_DetialScreen> {
                               kFav_POI_list.remove(POI);
                             else
                               kFav_POI_list.add(POI);
-
-                            //@todo add function to favourite/un-favourite POI
+                            //@todo add function to favourite/un-favourite POI in the database
+                            //@todo logic to refresh catalog and favourites screen
                           });
                         },
                         label: Text('Favourite'),
@@ -74,7 +64,13 @@ class _POI_DetialScreenState extends State<POI_DetialScreen> {
                         ),
                       ),
                       RaisedButton.icon(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushNamed(
+                            context,
+                            CarParkScreen.id,
+                            arguments: POI,
+                          );
+                        },
                         label: Text('NearBy CarPark'),
                         icon: Icon(Icons.directions_car_rounded),
                         shape: RoundedRectangleBorder(

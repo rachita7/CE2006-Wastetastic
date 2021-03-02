@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:wastetastic/control/CatalogMgr.dart';
 import 'package:wastetastic/control/DatabaseCreator.dart';
 
 class BasicTestingScreen extends StatefulWidget {

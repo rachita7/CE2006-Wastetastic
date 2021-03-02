@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wastetastic/Constants.dart';
-import 'package:wastetastic/widgets/header_card.dart';
+import 'package:wastetastic/widgets/HeaderCard.dart';
 
 class ProfileScreen extends StatefulWidget {
   @override

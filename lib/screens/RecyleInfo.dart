@@ -12,6 +12,9 @@ class RecycleInfo extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              Image(
+                image: AssetImage('assets/images/Wastetastic (2).png'),
+              ),
               Text(
                   "Recycling is good... \nblah.... blah.... blah.................................................."),
               SizedBox(

@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:wastetastic/widgets/POI_card.dart';
+import 'package:wastetastic/widgets/POICard.dart';
 import 'package:wastetastic/Constants.dart';
 import 'package:wastetastic/entity/WastePOI.dart';
-import 'POI_DetailScreen.dart';
-import 'package:wastetastic/widgets/header_card.dart';
+import 'POIDetailsScreen.dart';
+import 'package:wastetastic/widgets/HeaderCard.dart';
 
 class CatalogScreen extends StatefulWidget {
   @override
@@ -15,40 +15,44 @@ class _CatalogScreenState extends State<CatalogScreen> {
   String selectedCategory = 'NORMAL WASTE';
   @override
   Widget build(BuildContext context) {
-    //List<WastePOI> WastePOIs = retrievePOIFromDatabase();
-    List<POI_card> catalog_Cat = [];
-    for (WastePOI w in kWastePOI_List) {
-      String POICategory = w.wasteCategory.toString().split('.').last;
-      POICategory = POICategory.replaceAll('_', ' ');
-      if (POICategory == selectedCategory)
-        catalog_Cat.add(
-          POI_card(
-            name: w.POI_name,
-            address: w.address,
-            postalcode: w.POI_postalcode,
-            description: w.POI_description,
-            wasteCategory: POICategory,
-            fav: kFav_POI_list.contains(w),
-            TO_POI_page: () {
-              Navigator.pushNamed(
-                context,
-                POI_DetialScreen.id,
-                arguments: w,
-              );
-            },
-            FavFunct: () {
-              setState(() {
-                if (kFav_POI_list.contains(w))
-                  kFav_POI_list.remove(w);
-                else
-                  kFav_POI_list.add(w);
+    List<POI_card> build_cat_cards() {
+      //List<WastePOI> WastePOIs = retrievePOIFromDatabase();
+      List<POI_card> catalog_Cat = [];
+      for (WastePOI w in kWastePOI_List) {
+        String POICategory = w.wasteCategory.toString().split('.').last;
+        POICategory = POICategory.replaceAll('_', ' ');
+        if (POICategory == selectedCategory)
+          catalog_Cat.add(
+            POI_card(
+              name: w.POI_name,
+              address: w.address,
+              postalcode: w.POI_postalcode,
+              description: w.POI_description,
+              wasteCategory: POICategory,
+              fav: kFav_POI_list.contains(w),
+              TO_POI_page: () {
+                Navigator.pushNamed(
+                  context,
+                  POI_DetialScreen.id,
+                  arguments: w,
+                );
+              },
+              FavFunct: () {
+                setState(() {
+                  if (kFav_POI_list.contains(w))
+                    kFav_POI_list.remove(w);
+                  else
+                    kFav_POI_list.add(w);
 
-                //@todo add function to favourite/un-favourite POI
-              });
-            },
-          ),
-        );
+                  //@todo add function to favourite/un-favourite POI in the database
+                });
+              },
+            ),
+          );
+      }
+      return catalog_Cat;
     }
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15.0),
       child: Column(
@@ -85,7 +89,7 @@ class _CatalogScreenState extends State<CatalogScreen> {
           Expanded(
             child: SingleChildScrollView(
               child: Column(
-                children: catalog_Cat,
+                children: build_cat_cards(),
                 /*[
                   POI_card(
                     name: 'POI1',
@@ -105,8 +109,7 @@ class _CatalogScreenState extends State<CatalogScreen> {
                     postalcode: 321045,
                     description: 'description',
                   ),
-                ],*/ //@todo logic to create all of user favourite POI_cards
-                //@todo create function/logic to go to POI page from Favourites page when pressed
+                ],*/
               ),
             ),
           )

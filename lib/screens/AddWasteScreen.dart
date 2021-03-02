@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:wastetastic/Constants.dart';
-import 'package:wastetastic/widgets/header_card.dart';
+import 'package:wastetastic/widgets/HeaderCard.dart';
 
 final _formKey = GlobalKey<FormState>();
 String selectedTime;

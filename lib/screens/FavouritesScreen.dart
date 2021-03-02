@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:wastetastic/widgets/POI_card.dart';
-import 'POI_DetailScreen.dart';
+import 'package:wastetastic/widgets/POICard.dart';
+import 'POIDetailsScreen.dart';
 import 'package:wastetastic/Constants.dart';
 import 'package:wastetastic/entity/WastePOI.dart';
-import 'package:wastetastic/widgets/header_card.dart';
+import 'package:wastetastic/widgets/HeaderCard.dart';
 
 class FavouritesScreen extends StatefulWidget {
   @override
@@ -13,37 +13,40 @@ class FavouritesScreen extends StatefulWidget {
 class _FavouritesScreenState extends State<FavouritesScreen> {
   @override
   Widget build(BuildContext context) {
-    //List<WastePOI> favorites = retrieveFavoritesFromDatabase(username)
-    List<POI_card> fav_card_list = [];
-    for (WastePOI w in kFav_POI_list) {
-      String POICategory = w.wasteCategory.toString().split('.').last;
-      POICategory = POICategory.replaceAll('_', ' ');
-      fav_card_list.add(
-        POI_card(
-          name: w.POI_name,
-          address: w.address,
-          postalcode: w.POI_postalcode,
-          description: w.POI_description,
-          wasteCategory: POICategory,
-          fav: true,
-          TO_POI_page: () {
-            Navigator.pushNamed(
-              context,
-              POI_DetialScreen.id,
-              arguments: w,
-            );
-          },
-          FavFunct: () {
-            setState(() {
-              if (kFav_POI_list.contains(w))
-                kFav_POI_list.remove(w);
-              else
-                kFav_POI_list.add(w);
-              //@todo add function to favourite/un-favourite POI
-            });
-          },
-        ),
-      );
+    List<POI_card> build_fav_cards() {
+      //List<WastePOI> favorites = retrieveFavoritesFromDatabase(username)
+      List<POI_card> fav_card_list = [];
+      for (WastePOI w in kFav_POI_list) {
+        String POICategory = w.wasteCategory.toString().split('.').last;
+        POICategory = POICategory.replaceAll('_', ' ');
+        fav_card_list.add(
+          POI_card(
+            name: w.POI_name,
+            address: w.address,
+            postalcode: w.POI_postalcode,
+            description: w.POI_description,
+            wasteCategory: POICategory,
+            fav: true,
+            TO_POI_page: () {
+              Navigator.pushNamed(
+                context,
+                POI_DetialScreen.id,
+                arguments: w,
+              );
+            },
+            FavFunct: () {
+              setState(() {
+                if (kFav_POI_list.contains(w))
+                  kFav_POI_list.remove(w);
+                else
+                  kFav_POI_list.add(w);
+                //@todo add function to favourite/un-favourite POI in the database
+              });
+            },
+          ),
+        );
+      }
+      return fav_card_list;
     }
 
     return Column(
@@ -53,7 +56,7 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
         ),
         Expanded(
           child: SingleChildScrollView(
-            child: Column(children: fav_card_list
+            child: Column(children: build_fav_cards()
                 /*  [
                 POI_card(
                   name: 'POI1',
@@ -80,8 +83,7 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
                   postalcode: 321045,
                   description: 'description',
                 ),
-              ],*/ //@todo logic to create all of user favourite POI_cards
-                //@todo create function/logic to go to POI page from Favourites page when pressed
+              ],*/
                 ),
           ),
         )

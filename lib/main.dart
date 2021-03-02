@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:wastetastic/screens/BasicTestingScreen.dart';
+import 'package:wastetastic/screens/CarParkScreen.dart';
 import 'package:wastetastic/screens/MainScreen.dart';
-import 'package:wastetastic/screens/POI_DetailScreen.dart';
+import 'package:wastetastic/screens/NearYouScreen.dart';
+import 'package:wastetastic/screens/POIDetailsScreen.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
@@ -22,6 +24,8 @@ class MyApp extends StatelessWidget {
         BasicTestingScreen.id: (context) => BasicTestingScreen(),
         MainScreen.id: (context) => MainScreen(),
         POI_DetialScreen.id: (context) => POI_DetialScreen(),
+        NearYouScreen.id: (context) => NearYouScreen(),
+        CarParkScreen.id: (context) => CarParkScreen(),
       },
     );
   }
